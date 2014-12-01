@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - 2.1.5
+bundler_args: --without development
+env: DRIVER=poltergeist
+before_script:
+  - psql -c 'create database nsc_donations_test;' -U postgres
+  - gem install bundler
+  - "cp config/database.yml.example config/database.yml"
+  - "cp config/configuration.yml.example config/configuration.yml"
+  - rake db:schema:load
+
+addons:
+  postgresql: '9.3'
+  code_climate:
+    repo_token: dbd7b57ec91422c7f67448221b5132f7e0895c12c3f9370f682a1375335d2667
